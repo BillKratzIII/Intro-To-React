@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Working With Events</title>
+	<script src="..//labs//react//react.js"></script>
+	<script src="..//labs//react//react-dom.js"></script>
+	<script src="..//labs//react//babel.min.js"></script>
+	<style>
+		#container {
+			padding: 50px;
+			background-color: #FFF;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="container"></div>
+	<script type="text/babel">
+		var destination = document.querySelector("#container");
+		
+		var Counter = React.createClass({
+			render: function(){
+				var textStyle = {
+					fontSize: 72,
+					fontFamily: "sans-serif",
+					color: "#333",
+					fontWeight: "bold"
+				};
+				
+				return(
+					<div style={textStyle}>
+						{this.props.display}
+					</div>
+				);
+			}
+		});
+		
+		var CounterParent = React.createClass({
+			getInitialState: function(){
+				return{
+				count:0
+				};
+			},
+			increase: function(e){
+				var currentCount = this.state.count;
+				
+				if(e.shiftKey){
+					currentCount +=10;
+				}else{
+					currentCount+=1;
+				}
+				
+				this.setState({
+					count:currentCount
+				});
+			},
+			decrease: function(e){
+				var currentCount = this.state.count;
+				
+				if(e.shiftKey){
+					currentCount-=10;
+				}else{
+					currentCount-=1;
+				}
+				
+				this.setState({
+					count:currentCount
+				});
+			},
+			reset: function(){
+				this.setState({
+					count:0
+				});
+			},
+			render: function(){
+				var backgroundStyle = {
+					padding: 50,
+					backgroundColor: "#FFC53A",
+					width: 250,
+					height: 100,
+					borderRadius: 10,
+					textAlign: "center"
+				};
+				
+				var buttonStyle = {
+					fontSize: "1em",
+					height: 30,
+					fontFamily: "sans-serif",
+					color: "#333",
+					fontWeight: "bold",
+					lineHeight: "3px",
+					margin: 5
+				};
+				
+				var buttonStyles = {
+				
+					wideStyle: {
+						width: 100,
+						...buttonStyle
+					},
+					normalStyle: {
+						width: 30,
+						...buttonStyle
+					}
+				}
+				
+				return(
+					<div style={backgroundStyle}>
+						<Counter display={this.state.count}/>
+						<button onClick={this.decrease} style={buttonStyles.normalStyle}>-</button>
+						<button onClick={this.reset} style={buttonStyles.wideStyle}>reset</button>
+						<button onClick={this.increase} style={buttonStyles.normalStyle}>+</button>
+					</div>
+				);
+			}
+		});
+		
+		ReactDOM.render(
+			<div>
+				<CounterParent/>
+			</div>,
+			destination
+		);
+	</script>
+</body>
+
+</html>

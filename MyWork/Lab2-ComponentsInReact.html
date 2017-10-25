@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>React Components</title>
+	<script src="..//labs//react//react.js"></script>
+	<script src="..//labs//react//react-dom.js"></script>
+	<script src="..//labs//react//babel.min.js"></script>
+	<style>
+		
+	</style>
+</head>
+
+<body>
+	<div id="container"></div>
+	<script type="text/babel">
+		var HelloWorld = React.createClass({
+			render:function(){
+				return(
+					<p>Hello, {this.props.greetTarget}!</p>
+				);
+			}
+		});
+		
+		var Buttonify = React.createClass({
+			render:function(){
+				return(
+					<div>
+						<button type={this.props.behavior}>{this.props.children}</button>
+					</div>
+				)
+			}
+		});
+	
+		ReactDOM.render(
+			<div>
+				<HelloWorld greetTarget="Batman"/>
+				<HelloWorld greetTarget="Iron Man"/>
+				<HelloWorld greetTarget="Nicolas Cage"/>
+				<HelloWorld greetTarget="Mega Man"/>
+				<HelloWorld greetTarget="Catwoman"/>
+				<Buttonify behavior="Submit">SEND DATA</Buttonify>
+			</div>,
+			document.querySelector("#container")
+		);
+	</script>
+</body>
+
+</html>

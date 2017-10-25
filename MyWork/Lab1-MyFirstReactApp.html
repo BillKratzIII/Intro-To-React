@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>React! React! React!</title>
+	<script src="..//labs//react//react.js"></script>
+	<script src="..//labs//react//react-dom.js"></script>
+	<script src="..//labs//react//babel.min.js"></script>
+	<style>
+		#container {
+			background-color: dodgerblue;
+		}
+		#container h1 {
+			font-size: 5em;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="container"></div>
+	<script type="text/babel">
+		var destination = document.querySelector("#container");
+		
+		ReactDOM.render(
+			<div>
+				<h1>Sherlock Holmes</h1>
+				<h1>Batman</h1>
+			</div>,
+			destination
+		);
+	</script>
+</body>
+
+</html>
