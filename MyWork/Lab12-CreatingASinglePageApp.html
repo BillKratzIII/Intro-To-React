@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Creating A Single-Page App</title>
+	<script src="..//labs//react//react.js"></script>
+	<script src="..//labs//react//react-dom.js"></script>
+	<script src="..//labs//react//babel.min.js"></script>
+	<script src="https://npmcdn.com/react-router@3.0.2/umd/ReactRouter.min.js"></script>
+	
+	<style>
+	
+	</style>
+</head>
+
+<body>
+
+	<div id="container">
+	
+	</div>
+	
+	<script type="text/babel">
+		var destination = document.querySelector("#container");
+		
+		var { Router,
+			Route,
+			IndexRoute,
+			IndexLink,
+			hashHistory,
+			Link } = ReactRouter;
+		
+		var App = React.createClass({
+			render: function(){
+				return(
+					<div>
+						<h1>Simple SPA</h1>
+						<ul className="header">
+							<li>Home</li>
+							<li>Stuff</li>
+							<li>Contact</li>
+						</ul>
+						<div className="content">
+							<Home/>
+						</div>
+					</div>
+				);
+			}
+		});
+		
+		var Home = React.createClass({
+			render: function(){
+				return(
+					<div>
+						<h2>HELLO</h2>
+						<p>
+							Welcome to our home page! Some stuff about the home page. By the way
+							you are on our home page. Have you seen our home page? Isn't this such
+							a great home page? I hope you liked our home page. This is the end of the 
+							home page. Thank you for coming.
+						</p>
+						<p>Another paragraph about our home page</p>
+					</div>
+				);
+			}
+		});
+		
+		ReactDOM.render(
+			<Router history={hashHistory}>
+				<Route path="/" component={App}>
+				
+		        </Route>
+			</Router>,
+			destination
+		);
+	</script>
+</body>
+
+</html>
