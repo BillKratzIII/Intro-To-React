@@ -10,6 +10,53 @@
 	
 	<style>
 	
+		body {
+			background-color: #FFCC00;
+			padding: 20px;
+			margin: 0;
+		}
+		
+		h1, h2, p, ul, li {
+			font-family: Helvetica, Arial, sans-serif;
+		}
+		
+		ul.header li {
+			display: inline;
+			list-style-type: none;
+			margin: 0;
+		}
+		
+		ul.header {
+			background-color: #111;
+			padding: 0;
+		}
+		
+		ul.header li a {
+			color: #FFF;
+			font-weight: bold;
+			text-decoration: none;
+			padding: 20px;
+			display: inline-block;
+		}
+		
+		.content {
+			background-color: #FFF;
+			padding: 20px;
+		}
+		
+		.content h2 {
+			padding: 0;
+			margin: 0;
+		}
+		
+		.content li {
+			margin-bottom: 10px;
+		}
+		
+		.active {
+			background-color: #0099FF;
+		}
+		
 	</style>
 </head>
 
@@ -35,12 +82,13 @@
 					<div>
 						<h1>Simple SPA</h1>
 						<ul className="header">
-							<li>Home</li>
-							<li>Stuff</li>
-							<li>Contact</li>
+							<li><IndexLink to="/" activeClassName="active">Home</IndexLink></li>
+							<li><Link to="/stuff" activeClassName="active">Stuff</Link></li>
+							<li><Link to="/contact" activeClassName="active">Contact</Link></li>
+							<li><Link to="/greeting" activeClassName="active">Greeting</Link></li>
 						</ul>
 						<div className="content">
-							<Home/>
+							{this.props.children}
 						</div>
 					</div>
 				);
@@ -64,10 +112,83 @@
 			}
 		});
 		
+		var Contact = React.createClass({
+			render: function(){
+				return(
+					<div>
+						<h2>GOT QUESTIONS?</h2>
+						<p>The easiest thing to do is post on our&nbsp;
+						<a href="http://forum.kirupa.com">forums</a>
+						</p>
+					</div>
+				);
+			}
+		});
+		
+		var Stuff = React.createClass({
+			render: function(){
+				return(
+					<div>
+						<h2>STUFF</h2>
+						<p>Some stuff goes here. Ipsum gypsum gobbley goo. It's almost Halloween.
+						The snacks are good. I need coffee and more stuff.
+						</p>
+						<ol>
+							<li>List Item 1</li>
+							<li>List Item 2</li>
+							<li>List Item 3</li>
+							<li>List Item 4</li>
+							<li>List Item 5</li>
+						</ol>
+					</div>
+				);
+			}
+		});
+		
+		var Greeting = React.createClass({
+			getInitialState: function(){
+				return{
+					name: "",
+					greeting: ""
+				}
+			},
+			setName: function(e){
+				this.setState({name: this._input.value});
+				this.setState({greeting: "Greetings"});
+				
+				this._input.value = "";
+				this._input.focus();
+				
+				e.preventDefault();
+			},
+			render: function(){
+				
+				var self = this;
+			
+				return(
+					<div>
+						<h2>GET A GREETING</h2>
+						<p>
+						To get a customized greeting, type your name in the box below and click submit!
+						</p>
+						<form onSubmit={this.setName}>
+							<input ref={(el)=>{self._input=el}} placeholder="Your name here">
+							</input>
+							<button type="submit">Submit</button>
+						</form>
+						<p>{this.state.greeting} {this.state.name}</p>
+					</div>
+				);
+			}
+		});
+		
 		ReactDOM.render(
 			<Router history={hashHistory}>
 				<Route path="/" component={App}>
-				
+					<IndexRoute component={Home}/>
+					<Route path="stuff" component={Stuff} />
+					<Route path="contact" component={Contact} />
+					<Route path="greeting" component={Greeting} />
 		        </Route>
 			</Router>,
 			destination
